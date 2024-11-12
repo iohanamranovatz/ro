@@ -33,17 +33,19 @@ def ui_delete_book(lista_carte):
     except ValueError:
         print("Titlul introdus nu apartine listei de carti!")
 
-def ui_inchireaza_carte(lista_carte,set_clienti,lista_inchirieri):
+def ui_inchireaza_carte(set_clienti,lista_inchirieri,lista_carte):
+    afiseaza_carti(lista_carte)
     book_id=int(input("Introduce-ti ID-ul cartii care doriti sa o inchiriati:"))
     try:
         afiseaza_clienti_dupa_lista(set_clienti)
         client_id=int(input("Introduceți ID-ul clientului care închiriază cartea:"))
         inchirieaza_carte(book_id,client_id,lista_inchirieri) 
+        print("Cartea a fost inchiriata cu succes!")
     except ValueError:
         print("Cartea este deja inchiriata!")
 
 
-def ui_returneaza_carte(lista_carte,set_clienti,lista_inchirieri):
+def ui_returneaza_carte(lista_carte,lista_inchirieri):
     if (len(lista_carte) == 0):
         print("Nu există cărți în listă.")
         return

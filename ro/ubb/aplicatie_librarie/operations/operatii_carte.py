@@ -32,7 +32,7 @@ def inchirieaza_carte(book_id,client_id,  lista_inchirieri: list,):
     """
     Funcție pentru închirierea unei cărți.
     """
-    if verificare_inchiriere(lista_inchirieri, book_id) == False:
+    if verificare_inchiriere(lista_inchirieri, book_id) == True:
         raise ValueError
 
     inchiriere = {"book_id": book_id, "client_id": client_id}
