@@ -6,7 +6,7 @@ def cauta_client(set_client,id):
     Funcție pentru căutarea unui client după id.
     """
     for client in set_client:
-        if client[0] == id:
+        if int(client[0]) == id:
             return True
     return False
 
@@ -24,11 +24,12 @@ def sterge_client(set_client,client_id):
     """
     Funcție pentru ștergerea unui client după ID.
     """
-    if cauta_client(set_client, id) == False:
+    if cauta_client(set_client, int(client_id)) == False:
         raise ValueError
     for client in set_client:
-        if client[0]==client_id:
+        if int(client[0])==int(client_id):
                 client_to_remove=client
+                break
     set_client.remove(client_to_remove)
 
 def cauta_client_dupa_nume(set_client,nume):

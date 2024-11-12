@@ -33,17 +33,17 @@ def ui_delete_book(lista_carte):
     except ValueError:
         print("Titlul introdus nu apartine listei de carti!")
 
-def ui_inchireaza_carte(lista_carte,lista_clienti,lista_inchirieri):
+def ui_inchireaza_carte(lista_carte,set_clienti,lista_inchirieri):
     book_id=int(input("Introduce-ti ID-ul cartii care doriti sa o inchiriati:"))
     try:
-        afiseaza_clienti_dupa_lista(lista_clienti)
+        afiseaza_clienti_dupa_lista(set_clienti)
         client_id=int(input("Introduceți ID-ul clientului care închiriază cartea:"))
         inchirieaza_carte(book_id,client_id,lista_inchirieri) 
     except ValueError:
         print("Cartea este deja inchiriata!")
 
 
-def ui_returneaza_carte(lista_carte,lista_clienti,lista_inchirieri):
+def ui_returneaza_carte(lista_carte,set_clienti,lista_inchirieri):
     if (len(lista_carte) == 0):
         print("Nu există cărți în listă.")
         return
@@ -71,7 +71,9 @@ def afiseaza_clienti_dupa_lista(lista_client):
     print("\nLista de clienți:")
     if lista_client:
         for client in lista_client:
-            print(f"{client["client_id"]} - {client['nume']} cu CNP-ul {client['CNP']}")  
+            print(f"{client[0]} - {client[1]} cu CNP-ul {client[2]}")
+
+
 def afiseaza_clienti_set(set_clienti):
     """
     Afișează lista de clienți într-un format simplu.
@@ -79,7 +81,7 @@ def afiseaza_clienti_set(set_clienti):
     print("\nLista de clienți:")
     if set_clienti:
         for client in set_clienti:
-            print(f"{client["client_id"]} - {client['nume']} cu CNP-ul {client['CNP']}")  
+            print(f"{client[0]} - {client[1]} cu CNP-ul {client[2]}")
 
 
 def ui_adauga_client(set):
@@ -139,8 +141,8 @@ def ui_sortare_carti_dupa_titlu(lista_carti):
 def ui_sorteaza_clienti_dupa_id(set_clienti):
     if len(set_clienti)==0:
         print("Nu ati adaugat clienti!")
-    lista_clienti=sorteaza_clienti_dupa_id(set_clienti)
-    afiseaza_clienti_dupa_lista(lista_clienti)
+    set_clienti=sorteaza_clienti_dupa_id(set_clienti)
+    afiseaza_clienti_dupa_lista(set_clienti)
  
 
 def afis():
@@ -163,12 +165,10 @@ def afis():
     print("x. Ieșire")
 
 
-def run_menu():
+def run_menu(lista_carte, lista_inchirieri, set_clienti):
+    print("Bine ați venit!")
 
-    lista_carte = []
-    lista_client = []
-    lista_inchirieri = []
-    set_client=set()
+ 
     dict_carte = {1: ui_add_book, 2: ui_delete_book, 7: afiseaza_carti, 10: ui_cauta_carte_dupa_autor, 12: ui_sortare_carti_dupa_titlu}
     dict_client = {3: ui_adauga_client, 4: ui_sterge_client, 8: afiseaza_clienti_set,9:ui_cauta_client_dupa_nume,11: ui_sorteaza_clienti_dupa_id}
     dict_prestari_servicii = {5: ui_inchireaza_carte, 6: ui_returneaza_carte}
@@ -183,8 +183,8 @@ def run_menu():
         if optiune in dict_carte:
             dict_carte[optiune](lista_carte)
         elif optiune in dict_client:
-            dict_client[optiune](lista_client)
+            dict_client[optiune](set_clienti)
         elif optiune in dict_prestari_servicii:
-            dict_prestari_servicii[optiune](lista_carte, lista_client, lista_inchirieri)
+            dict_prestari_servicii[optiune](lista_carte, set_clienti, lista_inchirieri)
         else:
             print("Opțiune invalidă. Alegeți o opțiune între 1 și 10 sau 'x' pentru ieșire.")
